@@ -1,0 +1,56 @@
+---
+blueprint:
+  name: '[ZHA] Aqara Wireless Remote Switch (Single Rocker) (2018 version) (WXKG03LM)'
+  description: Automate your Aqara Wireless Remote Switch (Single Rocker) (2018 version) using ZHA events.
+  domain: automation
+  input:
+    aqara_mini_switch:
+      name: Select the Aqara Wireless Remote Switch (Single Rocker)
+      description: Aqara Wireless Remote Switch (Single Rocker)
+      selector:
+        device:
+          integration: zha
+          manufacturer: LUMI
+          model: lumi.remote.b186acn01
+    button_single_press:
+      name: Single Press
+      description: Action to run on single press
+      default: []
+      selector:
+        action:
+    button_double_press:
+      name: Double Press
+      description: Action to run on double press
+      default: []
+      selector:
+        action:
+    button_long_press:
+      name: Long Press
+      description: Action to run when button is long pressed (held down)
+      default: []
+      selector:
+        action:
+
+mode: restart
+max_exceeded: silent
+
+trigger:
+  - platform: event
+    event_type: zha_event
+    event_data:
+      device_id: !input aqara_mini_switch
+
+action:
+  - variables:
+      command: "{{ trigger.event.data.command }}"
+
+  - choose:
+      - conditions:
+          - "{{ command == 'single' }}"
+        sequence: !input button_single_press
+      - conditions:
+          - "{{ command == 'double' }}"
+        sequence: !input button_double_press
+      - conditions:
+          - "{{ command == 'long press' }}"
+        sequence: !input button_long_press
