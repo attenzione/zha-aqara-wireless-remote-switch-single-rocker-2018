@@ -8,6 +8,6 @@ Xiaomi Mijia Round Wireless Switch (2018)
 **Model**: WXKG03LM
 
 **ZHA Manufacturer**: Lumi  
-**ZHA Model**: lumi.sensor_86sw1
+**ZHA Model**: lumi.remote.b186acn01
 
 Source: https://community.home-assistant.io/t/zha-aqara-wireless-remote-switch-single-rocker/266708
